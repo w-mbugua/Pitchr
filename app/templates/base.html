@@ -23,10 +23,17 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarToggle">
         <div class="navbar-nav mr-auto">
-          <a style="text-transform: uppercase;" class="nav-item nav-link" href="/">Home</a>
-          <a style="text-transform: uppercase;" class="nav-item nav-link" href="/">About</a>
+          <a style="text-transform: uppercase;" class="nav-item nav-link" href="{{ url_for('main.index')}}">Home</a>
+          <a style="text-transform: uppercase;" class="nav-item nav-link" href="{{ url_for('main.index')}}">About</a>
         </div>
-        <!-- Navbar Right Side -->
+         <!-- Navbar Right Side -->
+         <div class="navbar-nav">
+
+    
+          <a class="nav-item nav-link" href="{{ url_for('main.login')}}">Login</a>
+          <a class="nav-item nav-link" href="{{ url_for('main.register')}}">Register</a>
+
+      </div>
  
       </div>
     </div>
