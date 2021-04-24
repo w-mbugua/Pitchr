@@ -3,7 +3,7 @@ from . import auth
 from .forms import RegistrationForm, LoginForm
 from ..models import User
 from .. import db
-from flask_login import login_user
+from flask_login import login_user, logout_user
 
 @auth.route('/register', methods = ['GET', 'POST'])
 def register():
@@ -33,3 +33,9 @@ def login():
 
     title = "Logged in"
     return render_template('login.html', form = login_form,title=title)
+
+@auth.route('/logout')
+def logout():
+    logout_user()
+    return render_template('index.html')
+
