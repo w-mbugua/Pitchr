@@ -4,10 +4,10 @@
 {% block content %}
 
 
-    {{ wtf.quick_form(reg_form) }}
+    {{ wtf.quick_form(form) }}
     <div class="border-top pt-3">
         <small class="text-muted">
-          Already Have An Accout? <a class="ml-2" href="/">Sign In</a>
+          Need An Accout? <a class="ml-2" href="{{url_for('register')}}">Sign Up Now</a>
         </small>
       </div>
 

@@ -1,4 +1,4 @@
-from flask import render_template
+from flask import render_template, url_for, redirect, flash
 from app import app
 from .forms import RegistrationForm, LoginForm
 
@@ -19,7 +19,21 @@ pitches = [
 def index():
     return render_template('index.html', pitches = pitches)
 
-@app.route('/register')
+@app.route('/register', methods = ['GET', 'POST'])
 def register():
     form = RegistrationForm()
+    if form.validate_on_submit():
+        flash('Account successfully created!', 'success')
+        return redirect(url_for('index'))
     return render_template('register.html', title='Register', reg_form=form)
+
+@app.route('/login', methods = ['GET', 'POST'])
+def login():
+    form = LoginForm()
+    if form.validate_on_submit():
+        if form.email.data == 'mbuguajoy52@gmail.com' and form.password.data == 'test':
+            flash('Login successful!', 'success')
+            return redirect(url_for('index'))
+        else:
+            flash('Login failed. Please check email or password', 'danger')
+    return render_template('login.html', title='Register', form=form)
