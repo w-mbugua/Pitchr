@@ -1,6 +1,7 @@
 from flask import render_template, url_for, redirect, flash, abort
 from . import main
 from ..models import User
+from flask_login import login_required
 
 pitches = [
     {'author': 'Sarah',
@@ -24,6 +25,12 @@ def profile(name):
     if user is None:
         abort(404)
     return render_template('profile/profile.html', user = user)
+
+@main.route('/pitch/new', methods = ['GET','POST'])
+@login_required
+def new_pitch():
+    return render_template('post_pitch.html', title = 'New Pitch')
+
 
 
 
