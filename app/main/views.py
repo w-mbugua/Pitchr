@@ -1,7 +1,5 @@
 from flask import render_template, url_for, redirect, flash
 from . import main
-from ..forms import RegistrationForm, LoginForm
-
 
 pitches = [
     {'author': 'Sarah',
