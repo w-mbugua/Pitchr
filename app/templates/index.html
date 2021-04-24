@@ -1,4 +1,15 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1>Home View</h1>
+{% for pitch in pitches %}
+    <article class="media content-section">
+    <div class="media-body">
+        <div class="article-metadata">
+        <a class="mr-2" href="#">{{ pitch.author }}</a>
+        <small class="text-muted">{{ pitch.date_posted }}</small>
+        </div>
+        
+        <p class="article-content">{{ pitch.pitch }}</p>
+    </div>
+    </article>
+{% endfor %}
 {% endblock %}
