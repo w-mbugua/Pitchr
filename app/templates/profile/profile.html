@@ -2,5 +2,20 @@
 
 <div class="col-md-8">
   <h3>{{user.username| capitalize}}</h3>
+  {% for pitch in pitches %}
+  <article class="media content-section">
+    <div class="media-body">
+        <div class="article-metadata">
+        <a class="mr-2" href="#">{{ pitch.user.username }}</a>
+        <small class="text-muted">{{ pitch.date_posted.strftime('%Y-%m-%d') }}</small>
+        {% if pitch.user == current_user %}
+        <small class="text-muted"><a href="{{ url_for('main.pitchupdate', id = pitch.id)}}">Edit</a></small>
+        <small class="text-muted">Delete</small>
+        {% endif %}
+        </div>  
+        <p class="article-content"><a style="text-decoration: none; color: black;" href="{{ url_for('main.pitch', id = pitch.id)}}">{{ pitch.post }}</a></p>
+    </div>
+    </article>
+  {% endfor %}
 </div>
 {% endblock %}

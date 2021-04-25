@@ -37,7 +37,7 @@ class User(UserMixin, db.Model):
 class Pitch(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     date_posted = db.Column(db.DateTime, default=datetime.utcnow)
-    content =  db.Column(db.Text)
+    post =  db.Column(db.String(255))
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 
     def __repr__(self):

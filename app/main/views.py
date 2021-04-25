@@ -1,36 +1,65 @@
 from flask import render_template, url_for, redirect, flash, abort
 from . import main
-from ..models import User
-from flask_login import login_required
+from ..models import Pitch, User
+from flask_login import login_required, current_user
+from .forms import PitchForm
+from .. import db
 
-pitches = [
-    {'author': 'Sarah',
-    'date_posted': 'April 27 2021',
-    'pitch': 'I find the work your PR team does to be innovating and refreshing—I’d love the opportunity to put my expertise to work for your company…'
-    },
-    {
-        'author': 'Steve',
-        'date_posted': 'February 29, 2020',
-        'pitch': 'I’ve always been passionate about the way sports bring cultures together and would love the opportunity to bring my project management and leadership abilities to this position.'
-    }
-]
 
 @main.route('/')
 def index():
+    pitches = Pitch.query.order_by(Pitch.date_posted.desc()).all()
     return render_template('index.html', pitches = pitches)
 
 @main.route('/user/<name>')
 def profile(name):
     user = User.query.filter_by(username = name).first()
+    pitches = Pitch.query.order_by(Pitch.date_posted.desc()).filter_by(user_id = user.id)
     if user is None:
         abort(404)
-    return render_template('profile/profile.html', user = user)
+    return render_template('profile/profile.html', user = user, pitches = pitches)
 
 @main.route('/pitch/new', methods = ['GET','POST'])
 @login_required
 def new_pitch():
-    return render_template('post_pitch.html', title = 'New Pitch')
+    form = PitchForm()
+    if form.validate_on_submit():
+        pitch = Pitch(post = form.post.data, user = current_user)
+        db.session.add(pitch)
+        db.session.commit()
+        flash('Your pitch has been posted!', 'success')
+        return redirect(url_for('main.index'))
+    return render_template('post_pitch.html', title = 'New Pitch', form = form)
 
+@main.route('/pitch/<int:id>')
+def pitch(id):
+    pitch = Pitch.query.get_or_404(id)
+    return render_template('pitch.html', pitch = pitch)
+
+@main.route('/pitch/<int:id>/update', methods = ['GET','POST'])
+@login_required
+def pitchupdate(id):
+   pitch = Pitch.query.get_or_404(id)
+   if pitch.user != current_user:
+       abort(403)
+   form = PitchForm()
+   if form.validate_on_submit():
+       pitch.post = form.post.data
+       db.session.commit()
+       return redirect(url_for('main.pitch', id = pitch.id))
+   form.post.data = pitch.post
+   return render_template('post_pitch.html', form = form)
+
+@main.route('/pitch/<int:id>/delete', methods = ['POST'])
+@login_required
+def delete(id):
+    pitch = Pitch.query.get_or_404(id)
+    if pitch.user != current_user:
+       abort(403)
+    db.session.delete(pitch)
+    db.session.commit()
+    flash('Pitch has been deleted!', 'success')
+    return redirect(url_for('main.index'))
 
 
 

@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}"> -->
     
     <title>Pitchr - {{ title }}</title>
 </head>
@@ -29,6 +29,7 @@
          <!-- Navbar Right Side -->
          <ul class="nav navbar-nav navbar-right">
           {% if current_user.is_authenticated %}
+          <li><a href="{{url_for('main.new_pitch')}}">Post a Pitch</a></li>
           <li><a href="{{url_for('main.profile', name = current_user.username)}}">{{current_user.username}}</a></li>
           <li><a href="{{url_for('auth.logout')}}">Sign out</a></li>
           {% else %}
@@ -41,7 +42,7 @@
     </div>
   </nav>
 </header>
-<main role="main" class="container">
+<main style="padding-top: 80px;" role="main" class="container">
   <div class="row">
    <div class="col-md-8">
     {% with messages = get_flashed_messages(with_categories = True) %}
@@ -72,11 +73,11 @@
     </div>
   </div>
 </main>
-<footer style="bottom: 0; position: fixed; background-color: black; color: white; width: 100vw; text-align: center;">
+<!-- <footer style="bottom: 0; position: fixed; background-color: black; color: white; width: 100vw; text-align: center;">
     <p>Joy Mbugua - 2021</p>
     <a href="#" class="fa fa-facebook"></a>
     <a href="#" class="fa fa-twitter"></a>
-</footer>
+</footer> -->
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>

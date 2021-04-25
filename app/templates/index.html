@@ -2,14 +2,21 @@
 {% block content %}
 {% for pitch in pitches %}
     <article class="media content-section">
-    <div class="media-body">
-        <div class="article-metadata">
-        <a class="mr-2" href="#">{{ pitch.author }}</a>
-        <small class="text-muted">{{ pitch.date_posted }}</small>
-        </div>
+        <div class="media-body">
+            <div class="article-metadata">
+            <a class="mr-2" href="#">{{ pitch.user.username }}</a>
+            <small class="text-muted">{{ pitch.date_posted.strftime('%Y-%m-%d') }}</small>
+            </div>
+            
+            <p class="article-content"><a style="text-decoration: none; color: black;" href="{{ url_for('main.pitch', id = pitch.id)}}">{{ pitch.post }}</a></p>
+            <div style="display: flex;" class="actions">
+                <p>Upvote</p> 
+            
+                <p>Downvote</p>
         
-        <p class="article-content">{{ pitch.pitch }}</p>
-    </div>
+                <p>Comment</p>
+            </div>
+        </div>
     </article>
 {% endfor %}
 {% endblock %}
