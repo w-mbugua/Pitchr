@@ -1,6 +1,6 @@
 # Pitchr
 
-This is a web app that allows users to create short pitches. The pitch can be for an interview, a pickup line or a product pitch etc. - < >
+This is a web app that allows users to create short pitches. The pitch can be for an interview, a pickup line or a product pitch etc. - <https://jm-pitchr.herokuapp.com/>
 
 
 ## BDD
