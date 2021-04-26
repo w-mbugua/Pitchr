@@ -9,13 +9,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}"> -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
     
     <title>Pitchr - {{ title }}</title>
 </head>
-<body style="font-family: 'Dosis', sans-serif;">
+<body>
 <header class="site-header">
-  <nav class="navbar navbar-expand-md bg-dark navbar-dark fixed-top">
+  <nav class="navbar navbar-expand-md bg-dark navbar-dark">
     <div class="container">
       <a style="text-transform: uppercase;" class="navbar-brand mr-4" href="/">Pitchr</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
@@ -40,11 +40,13 @@
  
       </div>
     </div>
+
   </nav>
 </header>
-<main style="padding-top: 80px;" role="main" class="container">
+<main style="margin: 0;" role="main" class="container">
   <div class="row">
-   <div class="col-md-8">
+   <div style="margin-top: 20px;" class="col-md-8">
+    <p class='text-muted'>One minute can make or break you.</p>
     {% with messages = get_flashed_messages(with_categories = True) %}
     {% if messages %}
     {% for category, message in messages %}
@@ -57,16 +59,16 @@
     {% block content %}
     {% endblock %}
    </div>
-    <div class="col-md-4">
+    <div style="background-color: black; color: whitesmoke; height: calc(100vh - 60px); float: left;" class="col-md-4">
       <div class="content-section">
         <h3>Pitch Category</h3>
-        <p class='text-muted'>One minute can make or break you.
-          <ul class="list-group">
+       
+          <ul>
               <!-- create picth links -->
-            <li class="list-group-item list-group-item-light">Interviews</li>
-            <li class="list-group-item list-group-item-light">Promotion</li>
-            <li class="list-group-item list-group-item-light">Pickup Lines</li>
-            <li class="list-group-item list-group-item-light">Product</li>
+            <li>Interviews</li>
+            <li>Promotion</li>
+            <li>Pickup Lines</li>
+            <li>Product</li>
           </ul>
         </p>
       </div>

@@ -4,6 +4,7 @@ from .forms import RegistrationForm, LoginForm
 from ..models import User
 from .. import db
 from flask_login import login_user, logout_user
+from ..email import mail_message
 
 @auth.route('/register', methods = ['GET', 'POST'])
 def register():
@@ -13,6 +14,8 @@ def register():
             user = User(email = form.email.data, username = form.username.data,password = form.password.data)
             db.session.add(user)
             db.session.commit()
+
+            mail_message("Welcome to Pitchr","welcome_user", user.email, user=user)
             flash('Account successfully created!', 'success')
         
             return redirect(url_for('auth.login'))
@@ -38,4 +41,7 @@ def login():
 def logout():
     logout_user()
     return redirect(url_for('main.index'))
+
+
+
 

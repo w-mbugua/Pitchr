@@ -6,6 +6,7 @@
         <a class="mr-2" href="#">{{ pitch.user.username }}</a>
         <small class="text-muted">{{ pitch.date_posted.strftime('%Y-%m-%d') }}</small>
         {% if pitch.user == current_user %}
+        <small class="text-muted"><a class="ml-2" href="{{url_for('main.comment', id = pitch.id)}}">Comment</a></small>
         <small class="text-muted"><a href="{{ url_for('main.pitchupdate', id = pitch.id)}}">Edit</a></small>
         <small class="text-muted" data-toggle="modal" data-target="#deleteModal">Delete</small>
         <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
@@ -30,21 +31,23 @@
         </div>
         
         <p class="article-content">{{ pitch.post }}</p>
-       <div style="display: flex;" class="actions">
-        <small class="text-muted">Upvote</small>      
-        <small class="text-muted">Downvote</small>
    
-        <small class="text-muted"><a class="ml-2" href="{{url_for('main.comment', id = pitch.id)}}">Comment</a></small>
-       </div>
        <div class="comments">
-           <h3>Comments {{ pitch.comments.count() }} in total</h3>
+          
+           {% if comments %}
+           <h5>Comments({{ pitch.comments.count() }})</h5>
            {% for comment in comments %}
            <div class="article-metadata">
             <a class="mr-2" href="#">{{ comment.user.username }}</a>
-            <small class="text-muted">{{ comment.date_posted.strftime('%Y-%m-%d') }}</small>
+            <small class="text-muted">@ {{ comment.date_posted.strftime('%Y-%m-%d') }}</small>
+            <small class="text-muted">Replied:</small>
             </div>
             <p>{{ comment.content }}</p>
+            <hr>
            {% endfor %}
+           {% else %}
+           <small class="text-muted">This pitch does not have any comments yet. </small>
+           {% endif %}          
        </div>
     </div>
     </article>

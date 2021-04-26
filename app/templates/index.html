@@ -4,19 +4,21 @@
     <article class="media content-section">
         <div class="media-body">
             <div class="article-metadata">
-            <a class="mr-2" href="#">{{ pitch.user.username }} in {{ pitch.category }}</a>
+            <a class="mr-2" href="{{ url_for('main.profile', name = pitch.user.username)}}">{{ pitch.user.username }}</a>
+            <small>in</small>
+            <a href="{{ url_for('main.category', category = pitch.category)}}">{{ pitch.category }}</a>
             <small class="text-muted">{{ pitch.date_posted.strftime('%Y-%m-%d') }}</small>
             </div>
             
-            <p class="article-content"><a style="text-decoration: none; color: black;" href="{{ url_for('main.pitch', id = pitch.id)}}">{{ pitch.post }}</a></p>
-            <div style="display: flex;" class="actions">
-                <small class="text-muted">UpVotes.{{ pitch.likes }}</small>      
-                        <small class="text-muted">Downvotes.{{ pitch.dislikes }}</small>
-        
+            <p class="article-content">
+                <a style="text-decoration: none; color: black;" href="{{ url_for('main.pitch', id = pitch.id)}}">{{ pitch.post }}</a>
+                <br>
                 {% if current_user.is_authenticated %}
                 <small class="text-muted"><a class="ml-2" href="{{url_for('main.comment', id = pitch.id)}}">Comment</a></small>
                 {% endif %}
-            </div>
+            </p>
+                
+               
         </div>
     </article>
 {% endfor %}

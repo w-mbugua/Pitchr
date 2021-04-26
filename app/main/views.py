@@ -6,7 +6,6 @@ from .forms import PitchForm, CommentForm
 from .. import db
 
 
-
 @main.route('/')
 def index():
     pitches = Pitch.query.order_by(Pitch.date_posted.desc()).all()
@@ -41,7 +40,7 @@ def category(category):
 def pitch(id):
     pitch = Pitch.query.get_or_404(id)
     comments = Comment.query.filter_by(pitch_id = pitch.id).all()
-    return render_template('pitch.html', pitch = pitch, comments = comment)
+    return render_template('pitch.html', pitch = pitch, comments = comments)
 
 @main.route('/pitch/<int:id>/update', methods = ['GET','POST'])
 @login_required
@@ -82,10 +81,9 @@ def comment(id):
        return redirect(url_for('main.index'))
    return render_template('post_pitch.html', form = form)
 
-counter = 0
-def likes():
-    counter += 1
-    return counter
+
+
+
 
 
 

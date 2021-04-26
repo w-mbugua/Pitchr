@@ -1,8 +1,8 @@
 {% extends 'base.html'%}
 {% block content %}
 {%for pitch in pitches %}
-<article class="media content-section">
-    <div class="media-body">
+<div class="col-md-8">
+
         <div class="article-metadata">
         <a class="mr-2" href="#">{{ pitch.user.username }}</a>
         <small class="text-muted">{{ pitch.date_posted.strftime('%Y-%m-%d') }}</small>
@@ -30,25 +30,14 @@
         {% endif %}
         </div>
         
-        <p class="article-content">{{ pitch.post }}</p>
-       <div style="display: flex;" class="actions">
-        <small class="text-muted">Upvote</small>      
-        <small class="text-muted">Downvote</small>
-   
-        <small class="text-muted"><a class="ml-2" href="{{url_for('main.comment', id = pitch.id)}}">Comment</a></small>
-       </div>
-       <div class="comments">
-           <h3>Comments({{ pitch.comments.count() }})</h3>
-           {% for comment in comments %}
-           <div class="article-metadata">
-            <a class="mr-2" href="#">{{ comment.user.username }}</a>
-            <small class="text-muted">{{ comment.date_posted.strftime('%Y-%m-%d') }}</small>
-            </div>
-            <p>{{ comment.content }}</p>
-           {% endfor %}
-       </div>
-    </div>
-    </article>
+        <p class="article-content">
+          {{ pitch.post }}
+          <br>
+          <small><a href="{{ url_for('main.pitch', id = pitch.id)}}">Comments({{ pitch.comments.count() }})</a></small>
+        </p>
+       
+       
+  </div>
     
 {% endfor %}
 {% endblock %}

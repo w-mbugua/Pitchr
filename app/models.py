@@ -48,6 +48,8 @@ class Pitch(db.Model):
 
     def __repr__(self):
         return f"User('{self.date_posted}')"
+    
+     
 
 class Comment(db.Model):
     id = db.Column(db.Integer, primary_key = True)

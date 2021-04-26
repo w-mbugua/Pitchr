@@ -1,0 +1,8 @@
+Dear {{ user.username }},
+
+Thank you for signing up on Pitchr!
+We hope you will learn a lot and improve your pitch game!
+
+Sincerely,
+
+The Pitchr Team
