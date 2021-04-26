@@ -5,8 +5,8 @@
         <div class="article-metadata">
         <a class="mr-2" href="#">{{ pitch.user.username }}</a>
         <small class="text-muted">{{ pitch.date_posted.strftime('%Y-%m-%d') }}</small>
-        {% if pitch.user == current_user %}
         <small class="text-muted"><a class="ml-2" href="{{url_for('main.comment', id = pitch.id)}}">Comment</a></small>
+        {% if pitch.user == current_user %}
         <small class="text-muted"><a href="{{ url_for('main.pitchupdate', id = pitch.id)}}">Edit</a></small>
         <small class="text-muted" data-toggle="modal" data-target="#deleteModal">Delete</small>
         <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
