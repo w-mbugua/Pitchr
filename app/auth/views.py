@@ -29,7 +29,7 @@ def login():
             login_user(user,login_form.remember.data)
             return redirect(request.args.get('next') or url_for('main.index'))
 
-        flash('Invalid username or Password')
+        flash('Invalid username or Password', 'danger')
 
     title = "Logged in"
     return render_template('login.html', form = login_form,title=title)

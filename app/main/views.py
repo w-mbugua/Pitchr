@@ -25,18 +25,23 @@ def profile(name):
 def new_pitch():
     form = PitchForm()
     if form.validate_on_submit():
-        pitch = Pitch(post = form.post.data, user = current_user)
+        pitch = Pitch(post = form.post.data, user = current_user, category = form.category.data)
         db.session.add(pitch)
         db.session.commit()
         flash('Your pitch has been posted!', 'success')
         return redirect(url_for('main.index'))
     return render_template('post_pitch.html', title = 'New Pitch', form = form)
 
+@main.route('/<category>')
+def category(category):
+    pitches = Pitch.query.filter_by(category = category).all()
+    return render_template('category.html', pitches = pitches)
+
 @main.route('/pitch/<int:id>')
 def pitch(id):
     pitch = Pitch.query.get_or_404(id)
-    comments = Comment.query.filter_by(pitch_id = pitch.id)
-    return render_template('pitch.html', pitch = pitch, comments = comments)
+    comments = Comment.query.filter_by(pitch_id = pitch.id).all()
+    return render_template('pitch.html', pitch = pitch, comments = comment)
 
 @main.route('/pitch/<int:id>/update', methods = ['GET','POST'])
 @login_required

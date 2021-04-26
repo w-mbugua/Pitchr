@@ -39,11 +39,11 @@ class User(UserMixin, db.Model):
 class Pitch(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     date_posted = db.Column(db.DateTime, default=datetime.utcnow)
-    post =  db.Column(db.String(255))
+    post =  db.Column(db.String(500))
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     likes = db.Column(db.Integer, default = 0)
     dislikes = db.Column(db.Integer, default = 0)
-    comment = db.relationship('Comment', backref = 'pitch', lazy = 'dynamic')
+    comments = db.relationship('Comment', backref = 'pitch', lazy = 'dynamic')
     category = db.Column(db.String(120))
 
     def __repr__(self):
@@ -51,7 +51,7 @@ class Pitch(db.Model):
 
 class Comment(db.Model):
     id = db.Column(db.Integer, primary_key = True)
-    content = db.Column(db.String(120))
+    content = db.Column(db.String(255))
     date_posted = db.Column(db.DateTime, default=datetime.utcnow)
     pitch_id = db.Column(db.Integer, db.ForeignKey('pitch.id'))
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
