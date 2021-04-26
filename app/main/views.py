@@ -1,9 +1,10 @@
 from flask import render_template, url_for, redirect, flash, abort
 from . import main
-from ..models import Pitch, User
+from ..models import Pitch, User, Comment
 from flask_login import login_required, current_user
-from .forms import PitchForm
+from .forms import PitchForm, CommentForm
 from .. import db
+
 
 
 @main.route('/')
@@ -34,7 +35,8 @@ def new_pitch():
 @main.route('/pitch/<int:id>')
 def pitch(id):
     pitch = Pitch.query.get_or_404(id)
-    return render_template('pitch.html', pitch = pitch)
+    comments = Comment.query.filter_by(pitch_id = pitch.id)
+    return render_template('pitch.html', pitch = pitch, comments = comments)
 
 @main.route('/pitch/<int:id>/update', methods = ['GET','POST'])
 @login_required
@@ -60,6 +62,25 @@ def delete(id):
     db.session.commit()
     flash('Pitch has been deleted!', 'success')
     return redirect(url_for('main.index'))
+  
+    
+
+@main.route('/pitch/<int:id>/comment', methods = ['GET','POST'])
+@login_required
+def comment(id):
+   pitch = Pitch.query.get_or_404(id)
+   form = CommentForm()
+   if form.validate_on_submit():
+       comment = Comment(content = form.content.data, pitch_id = pitch.id, user = current_user)
+       db.session.add(comment)
+       db.session.commit()
+       return redirect(url_for('main.index'))
+   return render_template('post_pitch.html', form = form)
+
+counter = 0
+def likes():
+    counter += 1
+    return counter
 
 
 

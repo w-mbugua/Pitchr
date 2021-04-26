@@ -10,11 +10,12 @@
             
             <p class="article-content"><a style="text-decoration: none; color: black;" href="{{ url_for('main.pitch', id = pitch.id)}}">{{ pitch.post }}</a></p>
             <div style="display: flex;" class="actions">
-                <p>Upvote</p> 
-            
-                <p>Downvote</p>
+                <small class="text-muted">{{ pitch.likes }}</small>      
+                        <small class="text-muted">{{ pitch.dislikes }}</small>
         
-                <p>Comment</p>
+                {% if current_user.is_authenticated %}
+                <small class="text-muted"><a class="ml-2" href="{{url_for('main.comment', id = pitch.id)}}">Comment</a></small>
+                {% endif %}
             </div>
         </div>
     </article>
