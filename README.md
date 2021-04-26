@@ -1,6 +1,6 @@
 # Pitchr
 
-This is a web app that allows users to create short pitches. The pitch can be for an interview, a pickup line or a product pitch etc. - <https://jmbugua-newsapp.herokuapp.com/>
+This is a web app that allows users to create short pitches. The pitch can be for an interview, a pickup line or a product pitch etc. - < >
 
 
 ## BDD
@@ -8,7 +8,7 @@ This is a web app that allows users to create short pitches. The pitch can be fo
 * A user can sign in, leave comments and view their profiles
 * A user can view the pitches I have created on their profile page
 * A user can click on an article and read the full article on the source website
-* for categories
+* A user can view the different pitch categories and make pitch submissions accordingly
 
 ## Getting Started
 
