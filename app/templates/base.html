@@ -26,27 +26,29 @@
           <a style="text-transform: uppercase;" class="nav-item nav-link" href="{{ url_for('main.index')}}">Home</a>
           <a style="text-transform: uppercase;" class="nav-item nav-link" href="{{ url_for('main.index')}}">About</a>
         </div>
-         <!-- Navbar Right Side -->
+
          <ul class="nav navbar-nav navbar-right">
           {% if current_user.is_authenticated %}
-          <li><a href="{{url_for('main.new_pitch')}}">Post a Pitch</a></li>
-          <li><a href="{{url_for('main.profile', name = current_user.username)}}">{{current_user.username}}</a></li>
-          <li><a href="{{url_for('auth.logout')}}">Sign out</a></li>
+          <a style="color: white;" class="nav-item nav-link" href="{{ url_for('main.new_pitch')}}">Post a Pitch</a>
+          <a style="color: wheat;" class="nav-item nav-link" href="{{ url_for('main.profile', name = current_user.username)}}">Profile</a>
+          <a style="color: wheat;" class="nav-item nav-link" href="{{ url_for('auth.logout')}}">Log Out</a>
           {% else %}
-          <li><a href="{{url_for('auth.login')}}">Sign in</a></li>
-          <li><a href="{{url_for('auth.register')}}">Register</a></li>
+          <a style="color: wheat;" class="nav-item nav-link" href="{{ url_for('auth.login')}}">Sign In</a>
+          
+          <a style="color: wheat;" class="nav-item nav-link" href="{{ url_for('auth.register')}}">Register</a>
           {%endif%}
-        </ul>
+          </ul>
+        
  
       </div>
     </div>
 
   </nav>
 </header>
-<main style="margin: 0;" role="main" class="container">
+<main style="margin-top: 20px;" role="main" class="container">
   <div class="row">
-   <div style="margin-top: 20px;" class="col-md-8">
-    <p class='text-muted'>One minute can make or break you.</p>
+   <div class="col-md-8">
+    <p class='text-muted'>One minute can make or break you! Make it count</p>
     {% with messages = get_flashed_messages(with_categories = True) %}
     {% if messages %}
     {% for category, message in messages %}
@@ -59,28 +61,21 @@
     {% block content %}
     {% endblock %}
    </div>
-    <div style="background-color: black; color: whitesmoke; height: calc(100vh - 60px); float: left;" class="col-md-4">
-      <div class="content-section">
-        <h3>Pitch Category</h3>
-       
-          <ul>
-              <!-- create picth links -->
-            <li>Interviews</li>
-            <li>Promotion</li>
-            <li>Pickup Lines</li>
-            <li>Product</li>
+    <div class="col-md-4">
+      <div>
+        <h3>Pitch Categories</h3>
+          <ul class="list-group">
+            <li class="list-group-item list-group-item-light"><a href="/elevator">Elevator</a>
+            </li>
+            <li class="list-group-item list-group-item-light"><a href="/pickup">Pickup Lines</a></li>
+            <li class="list-group-item list-group-item-light"><a href="/product">Product</a></li>
+            <li class="list-group-item list-group-item-light"><a href="/promotion">Promotion</a></li>
           </ul>
         </p>
       </div>
     </div>
   </div>
 </main>
-<!-- <footer style="bottom: 0; position: fixed; background-color: black; color: white; width: 100vw; text-align: center;">
-    <p>Joy Mbugua - 2021</p>
-    <a href="#" class="fa fa-facebook"></a>
-    <a href="#" class="fa fa-twitter"></a>
-</footer> -->
-
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>

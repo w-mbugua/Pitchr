@@ -78,7 +78,7 @@ def comment(id):
        comment = Comment(content = form.content.data, pitch_id = pitch.id, user = current_user)
        db.session.add(comment)
        db.session.commit()
-       return redirect(url_for('main.index'))
+       return redirect(url_for('main.pitch', id = pitch.id))
    return render_template('post_pitch.html', form = form)
 
 

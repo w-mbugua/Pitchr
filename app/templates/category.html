@@ -1,43 +1,49 @@
-{% extends 'base.html'%}
-{% block content %}
-{%for pitch in pitches %}
-<div class="col-md-8">
+{% extends 'base.html' %}
+ {% block content %} 
+{% if pitches %}
+    {% for pitch in pitches %}
 
-        <div class="article-metadata">
-        <a class="mr-2" href="#">{{ pitch.user.username }}</a>
-        <small class="text-muted">{{ pitch.date_posted.strftime('%Y-%m-%d') }}</small>
-        {% if pitch.user == current_user %}
-        <small class="text-muted"><a href="{{ url_for('main.pitchupdate', id = pitch.id)}}">Edit</a></small>
-        <small class="text-muted" data-toggle="modal" data-target="#deleteModal">Delete</small>
-        <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="deleteModalLabel">Are you sure?</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
+    <div  style="margin-bottom: 20px;" class="card">
+        <div class="card-header">
+            <a class="mr-2" href="{{ url_for('main.profile', name = pitch.user.username)}}">{{ pitch.user.username }}</a>
+            
+        <small class="text-muted"> on {{ pitch.date_posted.strftime('%Y-%m-%d') }}</small>
+            {% if pitch.user == current_user %}
+            <small style="padding: 0 20px;" class="text-muted"><a href="{{ url_for('main.pitchupdate', id = pitch.id)}}">Edit</a></small>
+            <small class="text-muted" data-toggle="modal" data-target="#deleteModal">Delete</small>
+            <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalLabel">Are you sure?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal">Cancel</button>
+                    <form action="{{url_for('main.delete', id = pitch.id)}}" method="POST">
+                        <input class="btn btn-danger btn-sm" type="submit" value="Delete">
+                    </form>
+                    </div>
                 </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal">Cancel</button>
-                  <form action="{{url_for('main.delete', id = pitch.id)}}" method="POST">
-                      <input class="btn btn-danger btn-sm" type="submit" value="Delete">
-                  </form>
                 </div>
-              </div>
             </div>
-          </div>
-        {% endif %}
+            {% endif %}
         </div>
-        
-        <p class="article-content">
-          {{ pitch.post }}
-          <br>
-          <small><a href="{{ url_for('main.pitch', id = pitch.id)}}">Comments({{ pitch.comments.count() }})</a></small>
-        </p>
-       
-       
-  </div>
-    
-{% endfor %}
+        <div style="line-height: 200%;" class="card-body">
+            
+            <a style="text-decoration: none; color: black" href="{{ url_for('main.pitch', id = pitch.id)}}">{{ pitch.post }}</a>
+            <!--  actions -->
+            <br>
+        <a href="{{url_for('main.pitch', id = pitch.id)}}" class="btn btn-primary btn-sm">Comment ( {{ pitch.comments.count() }} )</a>
+        <br>
+        </div>
+    </div>
+    {% endfor %} 
+{% else %}
+<p>This category does not have any submissions yet.</p>
+<p><a href="{{url_for('main.new_pitch')}}">Be the first to post!</a></p>
+{% endif %}
 {% endblock %}
+

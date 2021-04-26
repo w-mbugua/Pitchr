@@ -1,25 +1,20 @@
-{% extends 'base.html' %}
-{% block content %}
-{% for pitch in pitches %}
-    <article class="media content-section">
-        <div class="media-body">
-            <div class="article-metadata">
-            <a class="mr-2" href="{{ url_for('main.profile', name = pitch.user.username)}}">{{ pitch.user.username }}</a>
-            <small>in</small>
-            <a href="{{ url_for('main.category', category = pitch.category)}}">{{ pitch.category }}</a>
-            <small class="text-muted">{{ pitch.date_posted.strftime('%Y-%m-%d') }}</small>
-            </div>
-            
-            <p class="article-content">
-                <a style="text-decoration: none; color: black;" href="{{ url_for('main.pitch', id = pitch.id)}}">{{ pitch.post }}</a>
-                <br>
-                {% if current_user.is_authenticated %}
-                <small class="text-muted"><a class="ml-2" href="{{url_for('main.comment', id = pitch.id)}}">Comment</a></small>
-                {% endif %}
-            </p>
-                
-               
-        </div>
-    </article>
-{% endfor %}
-{% endblock %}
+{% extends 'base.html' %} {% block content %} {% for pitch in pitches %}
+
+<div  style="margin-bottom: 20px;" class="card">
+    <div class="card-header">
+        <a class="mr-2" href="{{ url_for('main.profile', name = pitch.user.username)}}">{{ pitch.user.username }}</a>
+        <small>in</small>
+    <a href="{{ url_for('main.category', category = pitch.category)}}">{{ pitch.category }}</a>
+    <small class="text-muted"> on {{ pitch.date_posted.strftime('%Y-%m-%d') }}</small>
+    </div>
+    <div style="line-height: 200%;" class="card-body">
+        <a style="text-decoration: none; color: black" href="{{ url_for('main.pitch', id = pitch.id)}}">{{ pitch.post }}</a>
+        <br>
+        {% if current_user.is_authenticated %}
+        <a href="{{url_for('main.comment', id = pitch.id)}}" class="btn btn-primary btn-sm">Comment</a>
+        {% endif %}
+
+    </div>
+  </div>
+
+{% endfor %} {% endblock %}
